@@ -157,6 +157,7 @@
     <ClInclude Include="GraphicObjectBase.h" />
     <ClInclude Include="CriticalSection.h" />
     <ClInclude Include="DrawVisitor.h" />
+    <ClInclude Include="RegistryGarbageCollector.h" />
     <ClInclude Include="RegistryLookupCriteria.h" />
     <ClInclude Include="RegistryLookupVisitor.h" />
     <ClInclude Include="GraphicObjectsFactory.h" />
@@ -186,6 +187,7 @@
     <ClCompile Include="CriticalSection.cpp" />
     <ClCompile Include="DrawVisitor.cpp" />
     <ClCompile Include="GraphicObjectVisitorDecorator.cpp" />
+    <ClCompile Include="RegistryGarbageCollector.cpp" />
     <ClCompile Include="RegistryLookupVisitor.cpp" />
     <ClCompile Include="GraphicObjectsFactory.cpp" />
     <ClCompile Include="GraphicObjectsRegistry.cpp" />

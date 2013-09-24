@@ -105,47 +105,47 @@ void Scene::DrawBattlefield()
 
 void Scene::AlignLevelMapPinPoint()
 {
-	size_t minLeft(0), minBottom(0);
-	size_t maxRight           = width_;
-	size_t maxTop             = height_;
+	size_t left(0), bottom(0), distanceExcess(0);
+	size_t right           = width_;
+	size_t top             = height_;
+	size_t minimumDistance    = 10;
+
 	Coordinates followedObjectCoord = LevelMapCoordToSceneCoord( followedObj_->GetCoordinates() );
 
-	size_t deltaLeft   = followedObjectCoord.X - minLeft;
-	size_t deltaRight  = maxRight - followedObjectCoord.X;
-	size_t deltaBottom = followedObjectCoord.Y - minBottom;
-	size_t deltaTop    = maxTop - followedObjectCoord.Y;
-	size_t minIndent   = 10;
-	size_t overshoot;
+	size_t distanceFromLeft   = followedObjectCoord.X - left;
+	size_t distanceFromRight  = right - followedObjectCoord.X;
+	size_t distanceFromBottom = followedObjectCoord.Y - bottom;
+	size_t distanceFromTop    = top - followedObjectCoord.Y;
 
-	if( deltaLeft < minIndent )
+	if( distanceFromLeft < minimumDistance )
 	{
-		overshoot = minIndent - deltaLeft;
+		distanceExcess = minimumDistance - distanceFromLeft;
 
-		if( levelMapLeftBottom_.X >= overshoot )
+		if( levelMapLeftBottom_.X >= distanceExcess )
 		{
-			levelMapLeftBottom_.X -= overshoot;
+			levelMapLeftBottom_.X -= distanceExcess;
 		}
 	}
 
-	if( deltaRight < minIndent )
+	if( distanceFromRight < minimumDistance )
 	{
-		overshoot = minIndent - deltaRight;
-		levelMapLeftBottom_.X += overshoot;
+		distanceExcess = minimumDistance - distanceFromRight;
+		levelMapLeftBottom_.X += distanceExcess;
 	}
 
-	if( deltaTop < minIndent )
+	if( distanceFromTop < minimumDistance )
 	{
-		overshoot = minIndent - deltaTop;
-		levelMapLeftBottom_.Y += overshoot;
+		distanceExcess = minimumDistance - distanceFromTop;
+		levelMapLeftBottom_.Y += distanceExcess;
 	}
 
-	if( deltaBottom < minIndent )
+	if( distanceFromBottom < minimumDistance )
 	{
-		overshoot = minIndent - deltaBottom;
+		distanceExcess = minimumDistance - distanceFromBottom;
 
-		if( levelMapLeftBottom_.Y >= overshoot )
+		if( levelMapLeftBottom_.Y >= distanceExcess )
 		{
-			levelMapLeftBottom_.Y -= overshoot;
+			levelMapLeftBottom_.Y -= distanceExcess;
 		}
 	}
 }

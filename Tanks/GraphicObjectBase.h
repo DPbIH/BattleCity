@@ -20,15 +20,18 @@ public:
 
 	void Draw( Renderer* renderer );
 	void Move( size_t delta, Direction direction );
+
 	bool IsGarbage();
 	void IsGarbage( bool isGarbage );
 	bool Hidden();
 	void Hide();
 	void Show();
-	virtual void Accept( GraphicObjectVisitor& visitor ) = 0;
+
 	Coordinates GetCoordinates() const;
 	void SetCoordinates( const Coordinates& newPosition );
 	void SetCoordinates( size_t newX, size_t newY );
+
+	virtual void Accept( GraphicObjectVisitor& visitor ) = 0;
 
 protected:
 	Direction lastMoveDirection_;
