@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GraphicObjectVisitor.h"
+#include "Coordinates.h"
 
 class Tank;
 class Bullet;
@@ -12,7 +13,7 @@ class RegistryLookupVisitor
 {
 public:
 	RegistryLookupVisitor();
-	void SetLookupPos( unsigned int x, unsigned int y );
+	void SetLookupPos( const Coordinates& pos );
 
 	void Visit( Bullet* bullet );
 	void Visit( Tank* tank );
@@ -23,6 +24,6 @@ public:
 private:
 	void DoVisit( GraphicObjectBase* obj );
 
-	 unsigned int x_, y_;
+	 Coordinates lookupPos_;
 	 GraphicObjectBase* foundObj_;
 };

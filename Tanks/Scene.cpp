@@ -9,10 +9,6 @@
 Scene::Scene()
 	: height_(0)
 	, width_(0)
-	, wndLeftBottomX_(0)
-	, wndLeftBottomY_(0)
-	, levelMapLeftBottomX_(0)
-	, levelMapLeftBottomY_(0)
 {
 }
 
@@ -27,26 +23,22 @@ void Scene::SetSize( size_t height, size_t width )
 	width_   = width;
 }
 
-void Scene::PinToLevelMapCoordinaets( size_t levelMapLeftBottomX, size_t levelMapLeftBottomY )
+void Scene::PinToLevelMap( const Coordinates& levelMapLeftBottom )
 {
-	levelMapLeftBottomX_ = levelMapLeftBottomX;
-	levelMapLeftBottomY_ = levelMapLeftBottomY;
+	levelMapLeftBottom_ = levelMapLeftBottom;
 }
 
-void Scene::PinToWindowCordinates( size_t wndLeftBottomX, size_t wndLeftBottomY )
+void Scene::PinToWindow( const Coordinates& wndLeftBottom )
 {
-	wndLeftBottomX_ = wndLeftBottomX;
-	wndLeftBottomY_ = wndLeftBottomY;
+	wndLeftBottom_ = wndLeftBottom;
 }
 
-bool Scene::CheckLevelMapCoordinatesAreCovered(
-	size_t levelMapX, size_t levelMapY
-	) const
+bool Scene::CheckSceneCoversLevelMapCoord( const Coordinates& coord ) const
 {
-	return ( levelMapLeftBottomX_ <= levelMapX ) &&
-		( levelMapX < levelMapLeftBottomX_ + width_ ) &&
-		( levelMapLeftBottomY_ <= levelMapY ) &&
-		( levelMapY < levelMapLeftBottomY_ + height_ );
+	return ( levelMapLeftBottom_.X <= coord.X ) &&
+		( coord.X < levelMapLeftBottom_.X + width_ ) &&
+		( levelMapLeftBottom_.Y <= coord.Y ) &&
+		( coord.Y < levelMapLeftBottom_.Y + height_ );
 }
 
 void Scene::Draw()
@@ -59,7 +51,7 @@ void Scene::Draw()
 
 void Scene::DrawBorders()
 {
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	/*HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute( hConsole, FOREGROUND_RED );
 
 	COORD coord;
@@ -98,12 +90,12 @@ void Scene::DrawBorders()
 		coord.X = wndLeftBottomX_ + width_;
 		SetConsoleCursorPosition(hConsole, coord);
 		printf ("x");
-	}
+	}*/
 }
 
 void Scene::DrawBattlefield()
 {
-	AlignCoveredLevelMapArea();
+	AlignLevelMapPinPoint();
 
 	SceneRenderer renderer(this);
 	DrawVisitor drawer( &renderer );
@@ -111,18 +103,17 @@ void Scene::DrawBattlefield()
 	GORegistry().Accept( sceneDrawer );
 }
 
-void Scene::AlignCoveredLevelMapArea()
+void Scene::AlignLevelMapPinPoint()
 {
 	size_t minLeft(0), minBottom(0);
 	size_t maxRight           = width_;
 	size_t maxTop             = height_;
-	size_t currX, currY;
-	LevelMapCoordinatesToSceneCoordinates( followedObj_->GetX(), followedObj_->GetY(), currX, currY );
+	Coordinates followedObjectCoord = LevelMapCoordToSceneCoord( followedObj_->GetCoordinates() );
 
-	size_t deltaLeft   = currX - minLeft;
-	size_t deltaRight  = maxRight - currX;
-	size_t deltaBottom = currY - minBottom;
-	size_t deltaTop    = maxTop - currY;
+	size_t deltaLeft   = followedObjectCoord.X - minLeft;
+	size_t deltaRight  = maxRight - followedObjectCoord.X;
+	size_t deltaBottom = followedObjectCoord.Y - minBottom;
+	size_t deltaTop    = maxTop - followedObjectCoord.Y;
 	size_t minIndent   = 10;
 	size_t overshoot;
 
@@ -130,66 +121,62 @@ void Scene::AlignCoveredLevelMapArea()
 	{
 		overshoot = minIndent - deltaLeft;
 
-		if( levelMapLeftBottomX_ >= overshoot )
+		if( levelMapLeftBottom_.X >= overshoot )
 		{
-			levelMapLeftBottomX_ -= overshoot;
+			levelMapLeftBottom_.X -= overshoot;
 		}
 	}
 
 	if( deltaRight < minIndent )
 	{
 		overshoot = minIndent - deltaRight;
-		levelMapLeftBottomX_ += overshoot;
+		levelMapLeftBottom_.X += overshoot;
 	}
 
 	if( deltaTop < minIndent )
 	{
 		overshoot = minIndent - deltaTop;
-		levelMapLeftBottomY_ += overshoot;
+		levelMapLeftBottom_.Y += overshoot;
 	}
 
 	if( deltaBottom < minIndent )
 	{
 		overshoot = minIndent - deltaBottom;
 
-		if( levelMapLeftBottomY_ >= overshoot )
+		if( levelMapLeftBottom_.Y >= overshoot )
 		{
-			levelMapLeftBottomY_ -= overshoot;
+			levelMapLeftBottom_.Y -= overshoot;
 		}
 	}
 }
 
-void Scene::SceneCoordinatesToWndCoordinates(
-	size_t sceneX, size_t sceneY,
-	size_t& consoleWndX, size_t& consoleWndY
-	) const
+Coordinates Scene::SceneCoordToWndCoord( const Coordinates& sceneCoord ) const
 {
-	assert( ( sceneX < width_ ) && ( sceneY < height_ ) );
+	assert( ( sceneCoord.X < width_ ) && ( sceneCoord.Y < height_ ) );
 
-	consoleWndX = wndLeftBottomX_ + sceneX;
-	consoleWndY = wndLeftBottomY_ - sceneY;
+	Coordinates wndCoord;
+
+	wndCoord.X = wndLeftBottom_.X + sceneCoord.X;
+	wndCoord.Y = wndLeftBottom_.Y - sceneCoord.Y;
+
+	return wndCoord;
 }
 
-void Scene::LevelMapCoordinatesToSceneCoordinates(
-	size_t levelMapX, size_t levelMapY,
-	size_t& sceneX, size_t& sceneY
-	) const
+Coordinates Scene::LevelMapCoordToSceneCoord( const Coordinates& levelMapCoord ) const
 {
-	if( ! CheckLevelMapCoordinatesAreCovered( levelMapX, levelMapY ) )
+	Coordinates sceneCoord;
+
+	if( CheckSceneCoversLevelMapCoord( levelMapCoord ) )
 	{
-		return;
+		sceneCoord.X = levelMapCoord.X - levelMapLeftBottom_.X;
+		sceneCoord.Y = levelMapCoord.Y - levelMapLeftBottom_.Y;
 	}
 
-	sceneX = levelMapX - levelMapLeftBottomX_;
-	sceneY = levelMapY - levelMapLeftBottomY_;
+	return sceneCoord;
 }
 
-void Scene::LevelMapCoordinatesToWndCoordinates(
-	size_t levelMapX, size_t levelMapY,
-	size_t& consoleWndX, size_t& consoleWndY
-	) const
+Coordinates Scene::LevelMapCoordToWndCoord( const Coordinates& levelMapCoord ) const
 {
-	size_t sceneX, sceneY;
-	LevelMapCoordinatesToSceneCoordinates( levelMapX, levelMapY, sceneX, sceneY );
-	SceneCoordinatesToWndCoordinates( sceneX, sceneY, consoleWndX, consoleWndY );
+	Coordinates sceneCoord = LevelMapCoordToSceneCoord( levelMapCoord );
+	return SceneCoordToWndCoord( sceneCoord );
 }

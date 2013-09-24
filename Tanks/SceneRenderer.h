@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Renderer.h"
+#include "Coordinates.h"
 
 class Scene;
 class GraphicObjectBase;
@@ -15,8 +16,8 @@ public:
 	void Render( const Obstacle* tank );
 
 private:
-	void Print( size_t posX, size_t posY, char ch, WORD color );
-	void GetRenderPositionForObject( const GraphicObjectBase* obj, size_t& posX, size_t& posY );
+	void Print( const Coordinates& pos, char ch, WORD color );
+	Coordinates GetRenderPositionForObject( const GraphicObjectBase* obj );
 
 	Scene* scene_;
 

@@ -9,7 +9,7 @@ void Tank::Fire()
 {
 	GraphicObjectsFactory goFactory;
 	Bullet::Ptr bullet = goFactory.CreateBullet();
-	bullet->SetPos(GetX(), GetY());
+	bullet->SetCoordinates( coords_ );
 	bullet->Fly( lastMoveDirection_ );
 }
 

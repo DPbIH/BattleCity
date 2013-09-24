@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Locatable2D.h"
 #include "GraphicObjectBase.h"
+#include "Coordinates.h"
 #include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
 
@@ -16,22 +16,21 @@ public:
 	Scene();
 	void SetFollowedObject( const GraphicObjectBase::Ptr& obj );
 	void SetSize( size_t height, size_t width );
-	void PinToLevelMapCoordinaets( size_t levelMapLeftBottomX, size_t levelMapLeftBottomY );
-	void PinToWindowCordinates( size_t wndLeftBottomX, size_t wndLeftBottomY );
-	void SceneCoordinatesToWndCoordinates( size_t sceneX, size_t sceneY, size_t& consoleWndX, size_t& consoleWndY ) const;
-	void LevelMapCoordinatesToSceneCoordinates( size_t levelMapX, size_t levelMapY, size_t& sceneX, size_t& sceneY ) const;
-	void LevelMapCoordinatesToWndCoordinates( size_t levelMapX, size_t levelMapY, size_t& consoleWndX, size_t& consoleWndY ) const;
-	bool CheckLevelMapCoordinatesAreCovered( size_t levelMapX, size_t levelMapY ) const;
+	void PinToLevelMap( const Coordinates& levelMapLeftBottom );
+	void PinToWindow( const Coordinates& wndLeftBottom );
+	Coordinates SceneCoordToWndCoord( const Coordinates& sceneCoord ) const;
+	Coordinates LevelMapCoordToSceneCoord( const Coordinates& levelMapCoord ) const;
+	Coordinates LevelMapCoordToWndCoord( const Coordinates& sceneCoord ) const;
+	bool CheckSceneCoversLevelMapCoord( const Coordinates& coord ) const;
 	void Draw();
 
 private:
-	void AlignCoveredLevelMapArea();
+	void AlignLevelMapPinPoint();
 	void DrawBorders();
 	void DrawBattlefield();
 
 	GraphicObjectBase::Ptr followedObj_;
 
-	size_t height_, width_,
-		wndLeftBottomX_, wndLeftBottomY_,
-		levelMapLeftBottomX_, levelMapLeftBottomY_;
+	size_t height_, width_;
+	Coordinates wndLeftBottom_, levelMapLeftBottom_;
 };

@@ -1,8 +1,10 @@
 #pragma once
 
+#include "Coordinates.h"
+
 class GraphicObjectBase;
 
 namespace Helpers
 {
-	GraphicObjectBase* FindGraphicObjectByPosition( unsigned int posX, unsigned int posY );
+	GraphicObjectBase* FindGraphicObjectByPosition( const Coordinates& pos );
 }

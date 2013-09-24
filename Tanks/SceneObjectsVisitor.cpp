@@ -36,5 +36,5 @@ void SceneObjectsVisitor::Visit( Obstacle* obstacle )
 
 bool SceneObjectsVisitor::CheckObjectBelongsToScene( GraphicObjectBase* obj )
 {
-	return scene_->CheckLevelMapCoordinatesAreCovered( obj->GetX(), obj->GetY() );
+	return scene_->CheckSceneCoversLevelMapCoord( obj->GetCoordinates() );
 }

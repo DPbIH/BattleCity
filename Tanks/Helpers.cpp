@@ -6,10 +6,10 @@
 
 namespace Helpers
 {
-	GraphicObjectBase* FindGraphicObjectByPosition( unsigned int posX, unsigned int posY )
+	GraphicObjectBase* FindGraphicObjectByPosition( const Coordinates& pos )
 	{
 		RegistryLookupVisitor finder;
-		finder.SetLookupPos(posX, posY);
+		finder.SetLookupPos(pos);
 		GORegistry().Accept( finder );
 
 		return finder.GetResult();

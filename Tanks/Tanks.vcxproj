@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Command.h" />
+    <ClInclude Include="Coordinates.h" />
     <ClInclude Include="GraphicObjectBase.h" />
     <ClInclude Include="CriticalSection.h" />
     <ClInclude Include="DrawVisitor.h" />
@@ -162,10 +163,8 @@
     <ClInclude Include="GraphicObjectsRegistry.h" />
     <ClInclude Include="GraphicObjectVisitor.h" />
     <ClInclude Include="Helpers.h" />
-    <ClInclude Include="IMovable.h" />
     <ClInclude Include="KeyboardEventsHandler.h" />
     <ClInclude Include="KeyboardEventsListener.h" />
-    <ClInclude Include="Locatable2D.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="PublisherBase.h" />
     <ClInclude Include="Renderer.h" />
@@ -182,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Coordinates.cpp" />
     <ClCompile Include="GraphicObjectBase.cpp" />
     <ClCompile Include="CriticalSection.cpp" />
     <ClCompile Include="DrawVisitor.cpp" />

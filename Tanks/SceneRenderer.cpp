@@ -6,9 +6,8 @@
 #include "SceneRenderer.h"
 
 #define RENDER(obj, ch, color)								\
-	size_t posX, posY;										\
-	GetRenderPositionForObject( (obj), posX, posY );		\
-	Print( posX, posY, (ch), (color) );						\
+	Coordinates renderPos = GetRenderPositionForObject( (obj) );		\
+	Print( renderPos, (ch), (color) );						\
 
 SceneRenderer::SceneRenderer( Scene* scene )
 	: scene_(scene)
@@ -30,16 +29,16 @@ void SceneRenderer::Render( const Obstacle* obstacle )
 	RENDER(obstacle, 178, FOREGROUND_BLUE );
 }
 
-void SceneRenderer::GetRenderPositionForObject( const GraphicObjectBase* obj, size_t& posX, size_t& posY )
+Coordinates SceneRenderer::GetRenderPositionForObject( const GraphicObjectBase* obj )
 {
-	scene_->LevelMapCoordinatesToWndCoordinates( obj->GetX(), obj->GetY(), posX, posY );
+	return scene_->LevelMapCoordToWndCoord( obj->GetCoordinates() );
 }
 
-void SceneRenderer::Print( size_t posX, size_t posY, char ch, WORD color )
+void SceneRenderer::Print( const Coordinates& pos, char ch, WORD color )
 {
 	COORD coord;
-	coord.X = posX;
-	coord.Y = posY;
+	coord.X = pos.X;
+	coord.Y = pos.Y;
 
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 

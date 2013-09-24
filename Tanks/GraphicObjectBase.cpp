@@ -8,7 +8,6 @@ GraphicObjectBase::GraphicObjectBase()
 	, isGarbage_( false )
 	, isHidden_( false )
 {
-	PinTo(0, 0);
 }
 
 void GraphicObjectBase::Draw( Renderer* renderer )
@@ -19,28 +18,28 @@ void GraphicObjectBase::Draw( Renderer* renderer )
 	}
 }
 
-void GraphicObjectBase::Move( int delta, Direction direction )
+void GraphicObjectBase::Move( size_t delta, Direction direction )
 {
-	unsigned int newX = GetX();
-	unsigned int newY = GetY();
+	size_t newX = coords_.X;
+	size_t newY = coords_.Y;
 
 	switch( direction )
 	{
 	case North:
-		newY = GetY() + delta;
+		newY = newY + delta;
 		break;
 	case South:
-		newY = delta > GetY() ? 0 : GetY() - delta;
+		newY = delta > newY ? 0 : newY - delta;
 		break;
 	case West:
-		newX = delta > GetX() ? 0 : GetX() - delta;
+		newX = delta > newX ? 0 : newX - delta;
 		break;
 	case East:
-		newX = GetX() + delta;
+		newX = newX + delta;
 		break;
 	}
 
-	if( GraphicObjectBase* collision = Helpers::FindGraphicObjectByPosition( newX, newY ) )
+	if( GraphicObjectBase* collision = Helpers::FindGraphicObjectByPosition( Coordinates(newX, newY) ) )
 	{
 		if( collision != this )
 		{
@@ -49,15 +48,10 @@ void GraphicObjectBase::Move( int delta, Direction direction )
 	}
 	else
 	{
-		SetPos( newX, newY );
+		SetCoordinates( newX, newY );
 	}
 
 	lastMoveDirection_ = direction;
-}
-
-void GraphicObjectBase::PinTo( unsigned int x, unsigned int y )
-{
-	SetPos(x,y);
 }
 
 bool GraphicObjectBase::IsGarbage()
@@ -83,4 +77,20 @@ void GraphicObjectBase::Show()
 void GraphicObjectBase::Hide()
 {
 	isHidden_ = true;
+}
+
+Coordinates GraphicObjectBase::GetCoordinates() const
+{
+	return coords_;
+}
+
+void GraphicObjectBase::SetCoordinates( const Coordinates& newPosition )
+{
+	coords_ = newPosition;
+}
+
+void GraphicObjectBase::SetCoordinates( size_t newX, size_t newY )
+{
+	coords_.X = newX;
+	coords_.Y = newY;
 }

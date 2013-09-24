@@ -10,10 +10,9 @@ RegistryLookupVisitor::RegistryLookupVisitor()
 {
 }
 
-void RegistryLookupVisitor::SetLookupPos( unsigned int x, unsigned int y )
+void RegistryLookupVisitor::SetLookupPos( const Coordinates& pos )
 {
-	x_ = x;
-	y_ = y;
+	lookupPos_ = pos;
 }
 
 void RegistryLookupVisitor::Visit( Bullet* bullet )
@@ -33,7 +32,10 @@ void RegistryLookupVisitor::Visit( Obstacle* obstacle )
 
 void RegistryLookupVisitor::DoVisit( GraphicObjectBase* obj )
 {
-	if( ! obj->IsGarbage() && ! obj->Hidden() &&( obj->GetX() == x_ ) && ( obj->GetY() == y_ ) )
+	if( ! obj->IsGarbage() &&
+		! obj->Hidden() &&
+		( obj->GetCoordinates() == lookupPos_ )
+		)
 	{
 		foundObj_ = obj;
 		RequestInterruption();
