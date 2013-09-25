@@ -33,6 +33,8 @@ public:
 
 	virtual void Accept( GraphicObjectVisitor& visitor ) = 0;
 
+	size_t UID();
+
 protected:
 	Direction lastMoveDirection_;
 	Coordinates coords_;
@@ -41,7 +43,12 @@ private:
 	virtual void DrawImpl( Renderer* renderer ) = 0;
 	virtual void HandleCollision( GraphicObjectBase* ){}
 
+	static size_t CreateUID();
+	static size_t newInstanceCounter_;
+
 	bool isGarbage_;
 	bool isHidden_;
+
+	const size_t uid_;
 
 };

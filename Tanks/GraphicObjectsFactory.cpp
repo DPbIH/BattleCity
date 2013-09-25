@@ -47,5 +47,5 @@ Obstacle::Ptr GraphicObjectsFactory::CreateObstacleImpl()
 
 void GraphicObjectsFactory::OnNewGraphicObject( const GraphicObjectBase::Ptr& newObj )
 {
-	GORegistry().Add( newObj );
+	GORegistry().Add( newObj->UID(), newObj );
 }

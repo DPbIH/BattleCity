@@ -4,10 +4,16 @@
 #include "GraphicObjectBase.h"
 
 GraphicObjectBase::GraphicObjectBase()
-	: lastMoveDirection_( North )
+	: uid_( CreateUID() )
+	, lastMoveDirection_( North )
 	, isGarbage_( false )
 	, isHidden_( false )
 {
+}
+
+size_t GraphicObjectBase::UID()
+{
+	return uid_;
 }
 
 void GraphicObjectBase::Draw( Renderer* renderer )
@@ -93,4 +99,11 @@ void GraphicObjectBase::SetCoordinates( size_t newX, size_t newY )
 {
 	coords_.X = newX;
 	coords_.Y = newY;
+}
+
+size_t GraphicObjectBase::newInstanceCounter_ = 0;
+
+size_t GraphicObjectBase::CreateUID()
+{
+	return InterlockedIncrement( &newInstanceCounter_ );
 }

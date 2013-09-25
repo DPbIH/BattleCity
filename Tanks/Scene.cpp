@@ -14,6 +14,8 @@ Scene::Scene()
 
 void Scene::SetFollowedObject( const GraphicObjectBase::Ptr& obj )
 {
+	assert( obj );
+
 	followedObj_ = obj;
 }
 
@@ -43,11 +45,16 @@ bool Scene::CheckSceneCoversLevelMapCoord( const Coordinates& coord ) const
 
 void Scene::Draw()
 {
-	system("CLS");
-
+	ClearScreen();
 	DrawBorders();
 	DrawBattlefield();
 }
+
+void Scene::ClearScreen()
+{
+	system("CLS");
+}
+
 
 void Scene::DrawBorders()
 {
@@ -105,47 +112,53 @@ void Scene::DrawBattlefield()
 
 void Scene::AlignLevelMapPinPoint()
 {
-	size_t left(0), bottom(0), distanceExcess(0);
-	size_t right           = width_;
-	size_t top             = height_;
-	size_t minimumDistance    = 10;
-
-	Coordinates followedObjectCoord = LevelMapCoordToSceneCoord( followedObj_->GetCoordinates() );
-
-	size_t distanceFromLeft   = followedObjectCoord.X - left;
-	size_t distanceFromRight  = right - followedObjectCoord.X;
-	size_t distanceFromBottom = followedObjectCoord.Y - bottom;
-	size_t distanceFromTop    = top - followedObjectCoord.Y;
-
-	if( distanceFromLeft < minimumDistance )
+	if( ! followedObj_ )
 	{
-		distanceExcess = minimumDistance - distanceFromLeft;
+		return;
+	}
 
-		if( levelMapLeftBottom_.X >= distanceExcess )
+	Coordinates followedCoord = LevelMapCoordToSceneCoord( followedObj_->GetCoordinates() );
+
+	size_t excess       = 0;
+	size_t minIndent    = (width_ <= height_) ? width_/4 : height_/4;
+	size_t leftIndent   = followedCoord.X;
+	size_t rightIndent  = width_ - followedCoord.X;
+	size_t bottomIndent = followedCoord.Y;
+	size_t topIndent    = height_ - followedCoord.Y;
+
+	// Align left
+	if( leftIndent < minIndent )
+	{
+		excess = minIndent - leftIndent;
+
+		if( levelMapLeftBottom_.X >= excess )
 		{
-			levelMapLeftBottom_.X -= distanceExcess;
+			levelMapLeftBottom_.X -= excess;
 		}
 	}
 
-	if( distanceFromRight < minimumDistance )
+	// Align right
+	if( rightIndent < minIndent )
 	{
-		distanceExcess = minimumDistance - distanceFromRight;
-		levelMapLeftBottom_.X += distanceExcess;
+		excess = minIndent - rightIndent;
+		levelMapLeftBottom_.X += excess;
 	}
 
-	if( distanceFromTop < minimumDistance )
+	// Align top
+	if( topIndent < minIndent )
 	{
-		distanceExcess = minimumDistance - distanceFromTop;
-		levelMapLeftBottom_.Y += distanceExcess;
+		excess = minIndent - topIndent;
+		levelMapLeftBottom_.Y += excess;
 	}
 
-	if( distanceFromBottom < minimumDistance )
+	// Align bottom
+	if( bottomIndent < minIndent )
 	{
-		distanceExcess = minimumDistance - distanceFromBottom;
+		excess = minIndent - bottomIndent;
 
-		if( levelMapLeftBottom_.Y >= distanceExcess )
+		if( levelMapLeftBottom_.Y >= excess )
 		{
-			levelMapLeftBottom_.Y -= distanceExcess;
+			levelMapLeftBottom_.Y -= excess;
 		}
 	}
 }

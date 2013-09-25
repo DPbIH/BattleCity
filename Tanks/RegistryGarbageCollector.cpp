@@ -31,6 +31,6 @@ void RegistryGarbageCollector::DoVisit( GraphicObjectBase* obj )
 {
 	if( obj->IsGarbage() )
 	{
-		//registry_->Remove( obj );
+		registry_->Remove( obj->UID() );
 	}
 }

@@ -28,6 +28,7 @@ private:
 	void AlignLevelMapPinPoint();
 	void DrawBorders();
 	void DrawBattlefield();
+	void ClearScreen();
 
 	GraphicObjectBase::Ptr followedObj_;
 
