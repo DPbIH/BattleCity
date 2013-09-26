@@ -1,10 +1,9 @@
 #pragma once
 
+#include "GlobalDeclarations.h"
 #include "Coordinates.h"
 #include <boost/shared_ptr.hpp>
 #include <boost/noncopyable.hpp>
-
-enum Direction { South, North, East, West };
 
 class Renderer;
 class GraphicObjectVisitor;
@@ -19,7 +18,7 @@ public:
 	virtual ~GraphicObjectBase() = 0 {}
 
 	void Draw( Renderer* renderer );
-	void Move( size_t delta, Direction direction );
+	void Move( size_t delta, GlobalDeclarations::Direction direction );
 
 	bool IsGarbage();
 	void IsGarbage( bool isGarbage );
@@ -36,7 +35,7 @@ public:
 	size_t UID();
 
 protected:
-	Direction lastMoveDirection_;
+	GlobalDeclarations::Direction lastMoveDirection_;
 	Coordinates coords_;
 
 private:

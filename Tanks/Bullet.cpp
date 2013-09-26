@@ -13,7 +13,7 @@ void Bullet::DrawImpl(Renderer* renderer)
 	renderer->Render(this);
 }
 
-void Bullet::Fly( Direction direction )
+void Bullet::Fly( GlobalDeclarations::Direction direction )
 {
 	direction_ = direction;
 	StartFlyThread();

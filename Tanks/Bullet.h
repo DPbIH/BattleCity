@@ -1,6 +1,7 @@
 #pragma once
 
 #include <boost/thread.hpp>
+#include "GlobalDeclarations.h"
 #include "GraphicObjectBase.h"
 
 class Bullet
@@ -10,7 +11,7 @@ public:
 	typedef boost::shared_ptr<Bullet> Ptr;
 
 	~Bullet();
-	void Fly( Direction direction );
+	void Fly( GlobalDeclarations::Direction direction );
 	void Accept( GraphicObjectVisitor& visitor );
 
 protected:
@@ -22,5 +23,5 @@ private:
 	void FlyThreadProc();
 
 	boost::thread flyThread_;
-	mutable Direction direction_;
+	mutable GlobalDeclarations::Direction direction_;
 };

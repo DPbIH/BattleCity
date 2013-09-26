@@ -5,7 +5,7 @@
 
 GraphicObjectBase::GraphicObjectBase()
 	: uid_( CreateUID() )
-	, lastMoveDirection_( North )
+	, lastMoveDirection_( GlobalDeclarations::North )
 	, isGarbage_( false )
 	, isHidden_( false )
 {
@@ -24,23 +24,23 @@ void GraphicObjectBase::Draw( Renderer* renderer )
 	}
 }
 
-void GraphicObjectBase::Move( size_t delta, Direction direction )
+void GraphicObjectBase::Move( size_t delta, GlobalDeclarations::Direction direction )
 {
 	size_t newX = coords_.X;
 	size_t newY = coords_.Y;
 
 	switch( direction )
 	{
-	case North:
+	case GlobalDeclarations::North:
 		newY = newY + delta;
 		break;
-	case South:
+	case GlobalDeclarations::South:
 		newY = delta > newY ? 0 : newY - delta;
 		break;
-	case West:
+	case GlobalDeclarations::West:
 		newX = delta > newX ? 0 : newX - delta;
 		break;
-	case East:
+	case GlobalDeclarations::East:
 		newX = newX + delta;
 		break;
 	}

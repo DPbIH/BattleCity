@@ -1,6 +1,5 @@
 #pragma once
 
-
 namespace sync
 {
 	class CriticalSectionLock

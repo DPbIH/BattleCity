@@ -152,11 +152,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
-    <ClInclude Include="Command.h" />
+    <ClInclude Include="DummyCommand.h" />
+    <ClInclude Include="GameCommand.h" />
     <ClInclude Include="Coordinates.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameCommandsFactory.h" />
+    <ClInclude Include="GameMenuState.h" />
+    <ClInclude Include="GameplayCommandsFactory.h" />
+    <ClInclude Include="GameplayState.h" />
+    <ClInclude Include="GameScreen.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="GlobalDeclarations.h" />
+    <ClInclude Include="GoToMenuCommand.h" />
     <ClInclude Include="GraphicObjectBase.h" />
     <ClInclude Include="CriticalSection.h" />
     <ClInclude Include="DrawVisitor.h" />
+    <ClInclude Include="MenuCommandsFactory.h" />
+    <ClInclude Include="MoveCommand.h" />
+    <ClInclude Include="OpenFireCommand.h" />
     <ClInclude Include="RegistryGarbageCollector.h" />
     <ClInclude Include="RegistryLookupCriteria.h" />
     <ClInclude Include="RegistryLookupVisitor.h" />
@@ -183,10 +196,20 @@
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Coordinates.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameCommand.cpp" />
+    <ClCompile Include="GameMenuState.cpp" />
+    <ClCompile Include="GameplayCommandsFactory.cpp" />
+    <ClCompile Include="GameplayState.cpp" />
+    <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="GoToMenuCommand.cpp" />
     <ClCompile Include="GraphicObjectBase.cpp" />
     <ClCompile Include="CriticalSection.cpp" />
     <ClCompile Include="DrawVisitor.cpp" />
     <ClCompile Include="GraphicObjectVisitorDecorator.cpp" />
+    <ClCompile Include="MenuCommandsFactory.cpp" />
+    <ClCompile Include="MoveCommand.cpp" />
+    <ClCompile Include="OpenFireCommand.cpp" />
     <ClCompile Include="RegistryGarbageCollector.cpp" />
     <ClCompile Include="RegistryLookupVisitor.cpp" />
     <ClCompile Include="GraphicObjectsFactory.cpp" />
@@ -195,7 +218,6 @@
     <ClCompile Include="Helpers.cpp" />
     <ClCompile Include="KeyboardEventsHandler.cpp" />
     <ClCompile Include="KeyboardEventsListener.cpp" />
-    <ClCompile Include="Locatable2D.cpp" />
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="PublisherBase.cpp" />
     <ClCompile Include="Scene.cpp" />

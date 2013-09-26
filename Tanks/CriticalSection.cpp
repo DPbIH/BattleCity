@@ -9,9 +9,7 @@ namespace sync
 	CriticalSectionLock::CriticalSectionLock( PCRITICAL_SECTION cs )
 		:critSectPtr_( cs )
 	{
-
 	}
-
 
 	void CriticalSectionLock::Enter() const
 	{
