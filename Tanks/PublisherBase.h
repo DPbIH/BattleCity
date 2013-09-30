@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <list>
 #include "Thread.h"
 #include "CriticalSection.h"
 
@@ -18,8 +18,10 @@ public:
 	virtual void Notify();
 
 protected:
+	void Cleanup();
+
 	sync_t sync_;
-	typedef std::vector<SubscriberBase*> SubscribersListT;
+	typedef std::list<SubscriberBase*> SubscribersListT;
 
 	SubscribersListT subscribers_;
 };
