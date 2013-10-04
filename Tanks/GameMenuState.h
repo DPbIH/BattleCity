@@ -7,13 +7,10 @@ class GameMenuState
 {
 public:
 	GameMenuState( Game* game );
-	void Start();
-	void Stop();
-	void Pause();
-	void Resume();
+	void Update();
 
 private:
-	GameScreen::Ptr Screen();
+	//GameScreen::Ptr Screen();
 	GameCommandsFactory::Ptr CommandsFactory();
 
 };

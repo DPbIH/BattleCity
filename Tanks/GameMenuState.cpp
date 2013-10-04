@@ -7,28 +7,16 @@ GameMenuState::GameMenuState( Game* game )
 {
 }
 
-void GameMenuState::Start()
+void GameMenuState::Update()
 {
 	system("CLS");
 	std::cout << "MENU";
 }
 
-void GameMenuState::Stop()
-{
-}
-
-void GameMenuState::Pause()
-{
-}
-
-void GameMenuState::Resume()
-{
-}
-
-GameScreen::Ptr GameMenuState::Screen()
-{
-	return screen_;
-}
+//GameScreen::Ptr GameMenuState::Screen()
+//{
+//	return screen_;
+//}
 
 GameCommandsFactory::Ptr GameMenuState::CommandsFactory()
 {

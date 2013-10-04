@@ -7,13 +7,11 @@ class GameplayState
 {
 public:
 	GameplayState( Game* game );
-	void Start();
-	void Stop();
-	void Pause();
-	void Resume();
+	void Update();
 
 private:
-	GameScreen::Ptr Screen();
+	void OnEnterImpl();
+	//GameScreen::Ptr Screen();
 	GameCommandsFactory::Ptr CommandsFactory();
 
 };

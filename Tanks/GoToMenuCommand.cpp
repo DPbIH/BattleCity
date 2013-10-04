@@ -9,5 +9,5 @@ GoToMenuCommand::GoToMenuCommand( Game* game )
 
 void GoToMenuCommand::Execute()
 {
-	game_->ShowMenu();
+	game_->Pause();
 }

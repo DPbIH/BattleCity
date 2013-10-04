@@ -1,37 +1,55 @@
 #include "stdafx.h"
 #include "Game.h"
 #include "GameState.h"
+#include "LevelMapFileParser.h"
+#include "LevelBuilder.h"
+#include "GraphicObjectsfactory.h"
+
+const char* mapfile = "e:\\map.txt";
 
 Game::Game()
-	: evtListener_( new KeyboardEventsListener )
 {
+}
+
+void Game::Init()
+{
+	evtListener_.reset( new KeyboardEventsListener );
 	evtListener_->Start();
 }
 
-void Game::ShowMenu()
+void Game::LoadRandomLevel()
 {
-	SetCurrentState( GameMenu );
-	Start();
+	GraphicObjectsFactory::Ptr factory( new GraphicObjectsFactory );
+	LevelBuilder::Ptr builder( new LevelBuilder( factory ) );
+	LevelMapFileParser parser( builder );
+	parser.Parse( mapfile );
+	currentLevel_ = builder->GetLevel();
 }
 
-void Game::Start()
+void Game::Run()
 {
-	currentState_->Start();
+	running_ = true;
+
+	while( running_ )
+	{
+		Update();
+		Sleep(17);
+	}
 }
 
-void Game::Stop()
+void Game::Update()
 {
-	currentState_->Stop();
+	currentState_->Update();
 }
 
 void Game::Pause()
 {
-	currentState_->Pause();
+	paused_ = ! paused_;
 }
 
-void Game::Resume()
+void Game::Stop()
 {
-	currentState_->Resume();
+	running_ = false;
 }
 
 void Game::PushState( StateName name, GameState::Ptr state )
@@ -47,10 +65,6 @@ void Game::SetCurrentState( StateName name )
 GameState::Ptr Game::GetState( StateName name )
 {
 	return gameStates_.at(name);
-}
-
-void Game::InitStatesMap()
-{
 }
 
 void Game::ChangeState( GameState::Ptr nextState )

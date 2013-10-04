@@ -5,9 +5,13 @@
 #include "Obstacle.h"
 #include "GraphicObjectBase.h"
 
+#include <boost/shared_ptr.hpp>
+
 class GraphicObjectsFactory
 {
 public:
+	typedef boost::shared_ptr<GraphicObjectsFactory> Ptr;
+
 	virtual ~GraphicObjectsFactory();
 	Bullet::Ptr CreateBullet();
 	Tank::Ptr CreateTank();
