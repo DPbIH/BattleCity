@@ -18,8 +18,6 @@ public:
 	virtual void Notify();
 
 protected:
-	void Cleanup();
-
 	sync_t sync_;
 	typedef std::list<SubscriberBase*> SubscribersListT;
 

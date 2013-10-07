@@ -2,30 +2,18 @@
 #include "SubscriberBase.h"
 #include "PublisherBase.h"
 
-#define UNSUBSCRIBED NULL
-
 void PublisherBase::Subscribe( SubscriberBase* subscriber )
 {
 	lock_t lock(sync_);
 
-	Cleanup();
 	subscribers_.push_back( subscriber );
-}
-
-void PublisherBase::Cleanup()
-{
-	subscribers_.remove( UNSUBSCRIBED );
 }
 
 void PublisherBase::Unsubscribe( SubscriberBase* subscriber )
 {
 	lock_t lock(sync_);
 
-	SubscribersListT::iterator it = std::find( subscribers_.begin(), subscribers_.end(), subscriber );
-	if( it != subscribers_.end() )
-	{
-		*it = UNSUBSCRIBED;
-	}
+	subscribers_.erase( std::remove( subscribers_.begin(), subscribers_.end(), subscriber ), subscribers_.end() );
 }
 
 void PublisherBase::Notify()
@@ -34,9 +22,6 @@ void PublisherBase::Notify()
 
 	for each( auto subscriber in subscribers_ )
 	{
-		if( subscriber != UNSUBSCRIBED )
-		{
-			subscriber->Update( this );
-		}
+		subscriber->Update( this );
 	}
 }
