@@ -32,6 +32,7 @@ void LevelBuilder::BuildEnemy( const Coordinates& coord )
 void LevelBuilder::BuildPlayer( const Coordinates& coord )
 {
 	Player::Ptr player( new Player );
+	// Create random vehicle { Tank, Heli, Marine etc }
 	Tank::Ptr newTank = factory_->CreateTank();
 	newTank->SetCoordinates(coord);
 	player->UseVehicle(newTank);

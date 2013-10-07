@@ -13,6 +13,7 @@ class Game
 {
 	friend class GameState;
 	friend class GameplayState;
+	friend class GameMenuState;
 
 public:
 	Game();
@@ -22,12 +23,14 @@ public:
 	void Run();
 	void Pause();
 	void Stop();
+	Player::Ptr Player();
 
 private:
 	void Update();
 	GameState::Ptr GetState( StateName name );
 	void ChangeState( GameState::Ptr nextState );
 	void LoadRandomLevel();
+	void StartKeyboardListener();
 
 	GameState::Ptr currentState_;
 

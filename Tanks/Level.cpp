@@ -10,8 +10,8 @@ Level::Level()
 void Level::InitScene()
 {
 	scene.PinToLevelMap( Coordinates(10, 10) );
-	scene.PinToWindow( Coordinates(30, 30) );
-	scene.SetSize(20, 50);
+	scene.PinToWindow( Coordinates(0, 30) );
+	scene.SetSize(30, 30);
 }
 
 void Level::AddPlayer( const Player::Ptr& player )
@@ -39,4 +39,9 @@ void Level::AddImpl( const GraphicObjectBase::Ptr& go )
 void Level::RenderScene()
 {
 	scene.Draw();
+}
+
+Player::Ptr Level::Player()
+{
+	return player_;
 }

@@ -22,6 +22,12 @@ void GameplayState::OnEnterImpl()
 
 void GameplayState::Update()
 {
+	if( game_->paused_ )
+	{
+		game_->ChangeState( game_->GetState( GameMenu ) );
+		return;
+	}
+
 	game_->currentLevel_->RenderScene();
 }
 

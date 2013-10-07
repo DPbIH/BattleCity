@@ -7,4 +7,5 @@ class MenuCommandsFactory
 {
 public:
 	MenuCommandsFactory( Game* game );
+	GameCommand::Ptr OnKeyEscape();
 };

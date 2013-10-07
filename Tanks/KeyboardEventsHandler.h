@@ -21,20 +21,10 @@ public:
 	void Start();
 	void Stop();
 	void Update( PublisherBase* publisher );
-	void SetTank( Tank* go );
 
 private:
-	void OnKeyDownArrow();
-	void OnKeyUpArrow();
-	void OnKeyLeftArrow();
-	void OnKeyRightArrow();
-	void OnKeySpace();
-
 	KeyboardEventsListener::Ptr evtListener_;
-	Tank* go_;
-
 	bool isStarted_;
-
 	GameCommandsFactory::Ptr cmdFactory_;
 
 };

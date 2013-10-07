@@ -16,6 +16,7 @@ public:
 	void AddEnemy( const Tank::Ptr& enemy );
 	void AddObstacle( const Obstacle::Ptr& obstacle );
 	void RenderScene();
+	Player::Ptr Player();
 
 private:
 	void InitScene();

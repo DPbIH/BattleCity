@@ -2,10 +2,10 @@
 
 #include "GameCommand.h"
 
-class GoToMenuCommand
+class GamePauseCommand
 	: public GameCommand
 {
 public:
-	GoToMenuCommand( Game* game );
+	GamePauseCommand( Game* game );
 	void Execute();
 };

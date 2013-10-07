@@ -8,10 +8,17 @@
 const char* mapfile = "e:\\map.txt";
 
 Game::Game()
+	: paused_(false)
+	, running_(false)
 {
 }
 
 void Game::Init()
+{
+	StartKeyboardListener();
+}
+
+void Game::StartKeyboardListener()
 {
 	evtListener_.reset( new KeyboardEventsListener );
 	evtListener_->Start();
@@ -33,7 +40,7 @@ void Game::Run()
 	while( running_ )
 	{
 		Update();
-		Sleep(17);
+		Sleep(100);
 	}
 }
 
@@ -78,4 +85,9 @@ void Game::ChangeState( GameState::Ptr nextState )
 
 	currentState_ = nextState;
 	currentState_->OnEnter();
+}
+
+Player::Ptr Game::Player()
+{
+	return currentLevel_->Player();
 }

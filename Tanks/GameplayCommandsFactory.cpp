@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "OpenFireCommand.h"
 #include "MoveCommand.h"
-#include "GoToMenuCommand.h"
+#include "GamePauseCommand.h"
 #include "GameplayCommandsFactory.h"
 
 GameplayCommandsFactory::GameplayCommandsFactory( Game* game )
@@ -44,5 +44,5 @@ GameCommand::Ptr GameplayCommandsFactory::GetMoveCommand( GlobalDeclarations::Di
 
 GameCommand::Ptr GameplayCommandsFactory::OnKeyEscape()
 {
-	return GameCommand::Ptr( new GoToMenuCommand(game_) );
+	return GameCommand::Ptr( new GamePauseCommand(game_) );
 }

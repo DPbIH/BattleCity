@@ -123,9 +123,6 @@
     <ClInclude Include="DummyCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GoToMenuCommand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameMenuState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -142,6 +139,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePauseCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -230,9 +230,6 @@
     <ClCompile Include="MoveCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GoToMenuCommand.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameMenuState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -249,6 +246,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Level.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePauseCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

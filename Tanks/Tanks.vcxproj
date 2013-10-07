@@ -162,7 +162,7 @@
     <ClInclude Include="GameplayState.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GlobalDeclarations.h" />
-    <ClInclude Include="GoToMenuCommand.h" />
+    <ClInclude Include="GamePauseCommand.h" />
     <ClInclude Include="GraphicObjectBase.h" />
     <ClInclude Include="CriticalSection.h" />
     <ClInclude Include="DrawVisitor.h" />
@@ -204,7 +204,7 @@
     <ClCompile Include="GameplayCommandsFactory.cpp" />
     <ClCompile Include="GameplayState.cpp" />
     <ClCompile Include="GameState.cpp" />
-    <ClCompile Include="GoToMenuCommand.cpp" />
+    <ClCompile Include="GamePauseCommand.cpp" />
     <ClCompile Include="GraphicObjectBase.cpp" />
     <ClCompile Include="CriticalSection.cpp" />
     <ClCompile Include="DrawVisitor.cpp" />

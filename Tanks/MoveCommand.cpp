@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Game.h"
 #include "MoveCommand.h"
 
 MoveCommand::MoveCommand( Game* game )
@@ -9,6 +10,7 @@ MoveCommand::MoveCommand( Game* game )
 
 void MoveCommand::Execute()
 {
+	game_->Player()->Vehicle()->Move( 1, direction_ );
 }
 
 void MoveCommand::SetDirection( GlobalDeclarations::Direction dir )
