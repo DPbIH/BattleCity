@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "MenuCommandsFactory.h"
 #include "Game.h"
+#include "DoubleBuffer.h"
 #include "GameMenuState.h"
 
 GameMenuState::GameMenuState( Game* game )
@@ -16,8 +17,9 @@ void GameMenuState::Update()
 		return;
 	}
 
-	system("CLS");
-	std::cout << "MENU";
+	Console().CleanupBuffer();
+	COORD coord = {30,30};
+	Console().Write( "MENU", coord, FOREGROUND_GREEN | FOREGROUND_INTENSITY );
 }
 
 //GameScreen::Ptr GameMenuState::Screen()

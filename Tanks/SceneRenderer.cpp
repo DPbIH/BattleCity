@@ -3,6 +3,7 @@
 #include "Tank.h"
 #include "Bullet.h"
 #include "Obstacle.h"
+#include "DoubleBuffer.h"
 #include "SceneRenderer.h"
 
 #define RENDER(obj, ch, color)								\
@@ -40,11 +41,8 @@ void SceneRenderer::Print( const Coordinates& pos, char ch, WORD color )
 	coord.X = pos.X;
 	coord.Y = pos.Y;
 
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	std::string str;
+	str.push_back( ch );
 
-	if( SetConsoleCursorPosition(hConsole, coord) )
-	{
-		SetConsoleTextAttribute(hConsole, color | FOREGROUND_INTENSITY);
-		printf ("%c", ch);
-	}
+	Console().Write( str, coord, color | FOREGROUND_INTENSITY, DoubleConsoleBuffer::BackgroundBuffer );
 }

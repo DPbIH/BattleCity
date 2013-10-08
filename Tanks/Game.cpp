@@ -5,7 +5,7 @@
 #include "LevelBuilder.h"
 #include "GraphicObjectsfactory.h"
 
-const char* mapfile = "e:\\map.txt";
+const char* mapfile = "d:\\map.txt";
 
 Game::Game()
 	: paused_(false)
@@ -40,7 +40,7 @@ void Game::Run()
 	while( running_ )
 	{
 		Update();
-		Sleep(100);
+		Sleep(17);
 	}
 }
 

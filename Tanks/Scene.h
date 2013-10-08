@@ -5,7 +5,9 @@
 #include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
 
-
+class SceneObjectsVisitor;
+class SceneRenderer;
+class DrawVisitor;
 
 class Scene
 	: boost::noncopyable
@@ -28,9 +30,13 @@ private:
 	void AlignLevelMapPinPoint();
 	void DrawBorders();
 	void DrawBattlefield();
-	void ClearScreen();
+	void InitDrawer();
 
 	GraphicObjectBase::Ptr followedObj_;
+
+	boost::shared_ptr<DrawVisitor> drawer_;
+	boost::shared_ptr<SceneRenderer> renderer_;
+	boost::shared_ptr<SceneObjectsVisitor> sceneDrawer_;
 
 	size_t height_, width_;
 	Coordinates wndLeftBottom_, levelMapLeftBottom_;

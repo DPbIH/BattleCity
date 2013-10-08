@@ -10,7 +10,7 @@ Level::Level()
 void Level::InitScene()
 {
 	scene.PinToLevelMap( Coordinates(10, 10) );
-	scene.PinToWindow( Coordinates(0, 30) );
+	scene.PinToWindow( Coordinates(35, 40) );
 	scene.SetSize(30, 30);
 }
 

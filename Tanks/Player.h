@@ -18,6 +18,10 @@ public:
 		return vehicle_;
 	}
 
+	size_t Scores();
+	bool IsDead();
+
+
 private:
 	Tank::Ptr vehicle_;
 

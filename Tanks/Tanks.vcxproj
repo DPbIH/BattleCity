@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="DoubleBuffer.h" />
     <ClInclude Include="DummyCommand.h" />
     <ClInclude Include="GameCommand.h" />
     <ClInclude Include="Coordinates.h" />
@@ -198,6 +199,7 @@
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Coordinates.cpp" />
+    <ClCompile Include="DoubleBuffer.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCommand.cpp" />
     <ClCompile Include="GameMenuState.cpp" />

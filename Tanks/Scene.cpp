@@ -4,12 +4,14 @@
 #include "DrawVisitor.h"
 #include "SceneObjectsVisitor.h"
 #include "GraphicObjectsRegistry.h"
+#include "DoubleBuffer.h"
 #include "Scene.h"
 
 Scene::Scene()
 	: height_(0)
 	, width_(0)
 {
+	InitDrawer();
 }
 
 void Scene::SetFollowedObject( const GraphicObjectBase::Ptr& obj )
@@ -45,69 +47,51 @@ bool Scene::CheckSceneCoversLevelMapCoord( const Coordinates& coord ) const
 
 void Scene::Draw()
 {
-	ClearScreen();
+	Console().CleanupBuffer(DoubleConsoleBuffer::BackgroundBuffer);
 	DrawBorders();
 	DrawBattlefield();
+	Console().CleanupBuffer(DoubleConsoleBuffer::ActiveBuffer);
+	Console().FlipBuffers();
 }
-
-void Scene::ClearScreen()
-{
-	system("CLS");
-}
-
 
 void Scene::DrawBorders()
 {
-	/*HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute( hConsole, FOREGROUND_RED );
-
 	COORD coord;
 
-	for( size_t x = wndLeftBottomX_; x <= wndLeftBottomX_ + width_; ++x )
+	for( size_t x = wndLeftBottom_.X; x <= wndLeftBottom_.X + width_; ++x )
 	{
-		if (x%2==1)
-		{
-			continue;
-		}
-
 		coord.X = x;
 
-		coord.Y = wndLeftBottomY_;
-		SetConsoleCursorPosition(hConsole, coord);
-		printf ("x");
+		coord.Y = wndLeftBottom_.Y;
+		Console().Write( "x", coord, FOREGROUND_GREEN, DoubleConsoleBuffer::BackgroundBuffer );
 
-		coord.Y = wndLeftBottomY_ - height_;
-		SetConsoleCursorPosition(hConsole, coord);
-		printf ("x");
+		coord.Y = wndLeftBottom_.Y - height_;
+		Console().Write( "x", coord, FOREGROUND_GREEN, DoubleConsoleBuffer::BackgroundBuffer );
 	}
 
-	for( size_t y = wndLeftBottomY_; y >= wndLeftBottomY_ - height_ ; --y )
+	for( size_t y = wndLeftBottom_.Y; ( y >= wndLeftBottom_.Y - height_ ) && y; --y )
 	{
-		if (y%2==1)
-		{
-			continue;
-		}
-
 		coord.Y = y;
 
-		coord.X = wndLeftBottomX_;
-		SetConsoleCursorPosition(hConsole, coord);
-		printf ("x");
+		coord.X = wndLeftBottom_.X;
+		Console().Write( "x", coord, FOREGROUND_GREEN, DoubleConsoleBuffer::BackgroundBuffer );
 
-		coord.X = wndLeftBottomX_ + width_;
-		SetConsoleCursorPosition(hConsole, coord);
-		printf ("x");
-	}*/
+		coord.X = wndLeftBottom_.X + width_;
+		Console().Write( "x", coord, FOREGROUND_GREEN, DoubleConsoleBuffer::BackgroundBuffer );
+	}
+}
+
+void Scene::InitDrawer()
+{
+	renderer_.reset( new SceneRenderer(this) );
+	drawer_.reset( new DrawVisitor(renderer_.get() ) );
+	sceneDrawer_.reset( new SceneObjectsVisitor( this, drawer_.get() ) );
 }
 
 void Scene::DrawBattlefield()
 {
 	AlignLevelMapPinPoint();
-
-	SceneRenderer renderer(this);
-	DrawVisitor drawer( &renderer );
-	SceneObjectsVisitor sceneDrawer( this, &drawer );
-	GORegistry().Accept( sceneDrawer );
+	GORegistry().Accept( *sceneDrawer_ );
 }
 
 void Scene::AlignLevelMapPinPoint()
