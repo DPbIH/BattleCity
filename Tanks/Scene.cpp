@@ -7,6 +7,8 @@
 #include "DoubleBuffer.h"
 #include "Scene.h"
 
+const size_t FrameWidth = 1;
+
 Scene::Scene()
 	: height_(0)
 	, width_(0)
@@ -48,9 +50,8 @@ bool Scene::CheckSceneCoversLevelMapCoord( const Coordinates& coord ) const
 void Scene::Draw()
 {
 	Console().CleanupBuffer(DoubleConsoleBuffer::BackgroundBuffer);
-	DrawBorders();
 	DrawBattlefield();
-	Console().CleanupBuffer(DoubleConsoleBuffer::ActiveBuffer);
+	DrawBorders();
 	Console().FlipBuffers();
 }
 
