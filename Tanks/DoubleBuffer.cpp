@@ -54,6 +54,8 @@ void ConsoleBuffer::Cleanup()
 
 
 DoubleConsoleBuffer::DoubleConsoleBuffer()
+	: width_(100)
+	, height_(50)
 {
 	InitBuffers();
 }
@@ -66,35 +68,29 @@ void DoubleConsoleBuffer::InitBuffers()
 	firstIsActive_ = true;
 }
 
-void ResizeConsole( HANDLE hConsole, SHORT xSize, SHORT ySize ) {
-	CONSOLE_SCREEN_BUFFER_INFO csbi; // Hold Current Console Buffer Info
-	SMALL_RECT srWindowRect;         // Hold the New Console Size
+void DoubleConsoleBuffer::ResizeConsoleBuf( HANDLE hConsole, size_t xSize, size_t ySize )
+{
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	SMALL_RECT srWindowRect;
 	COORD coordScreen;
 
 	assert(GetConsoleScreenBufferInfo( hConsole, &csbi ));
 
-	// Get the Largest Size we can size the Console Window to
 	coordScreen = GetLargestConsoleWindowSize( hConsole );
 
-	// Define the New Console Window Size and Scroll Position
-	srWindowRect.Right  = (SHORT)(min(xSize, coordScreen.X) - 1);
-	srWindowRect.Bottom = (SHORT)(min(ySize, coordScreen.Y) - 1);
+	srWindowRect.Right  = min((SHORT)xSize, coordScreen.X) - 1;
+	srWindowRect.Bottom = min((SHORT)ySize, coordScreen.Y) - 1;
 	srWindowRect.Left   = srWindowRect.Top = (SHORT)0;
 
-	// Define the New Console Buffer Size
 	coordScreen.X = xSize;
 	coordScreen.Y = ySize;
 
-	// If the Current Buffer is Larger than what we want, Resize the
-	// Console Window First, then the Buffer
 	if( (DWORD)csbi.dwSize.X * csbi.dwSize.Y > (DWORD) xSize * ySize)
 	{
 		assert(SetConsoleWindowInfo( hConsole, TRUE, &srWindowRect ));
 		assert(SetConsoleScreenBufferSize( hConsole, coordScreen ));
 	}
 
-	// If the Current Buffer is Smaller than what we want, Resize the
-	// Buffer First, then the Console Window
 	if( (DWORD)csbi.dwSize.X * csbi.dwSize.Y < (DWORD) xSize * ySize )
 	{
 		assert(SetConsoleScreenBufferSize( hConsole, coordScreen ));
@@ -109,7 +105,7 @@ HANDLE DoubleConsoleBuffer::CreateConsoleBuffer()
 	{
 		CONSOLE_CURSOR_INFO curinf = { 1, FALSE };
 		assert(SetConsoleCursorInfo(buf, &curinf));
-		ResizeConsole(buf, 100, 50);
+		ResizeConsoleBuf(buf, width_, height_);
 	}
 
 	return buf;
@@ -129,54 +125,30 @@ void DoubleConsoleBuffer::FlipBuffers()
 	firstIsActive_ = ! firstIsActive_;
 }
 
+DoubleConsoleBuffer::BufferPtr DoubleConsoleBuffer::GetTargetBuf( BufferType bufType )
+{
+	bool targetIs1stBuf = ( (bufType == ActiveBuffer) && firstIsActive_ ) ||
+		( (bufType == BackgroundBuffer) && ! firstIsActive_ );
+
+	return targetIs1stBuf ? buf1st_ : buf2nd_;
+}
+
 void DoubleConsoleBuffer::Write( const std::string& str, COORD coord, WORD attribs,  BufferType targetBuf )
 {
-	if ( targetBuf == ActiveBuffer )
-	{
-		if( firstIsActive_ )
-		{
-			buf1st_->Write( str, coord, attribs );
-		}
-		else
-		{
-			buf2nd_->Write( str, coord, attribs );
-		}
-	}
-	else
-	{
-		if( firstIsActive_ )
-		{
-			buf2nd_->Write( str, coord, attribs );
-		}
-		else
-		{
-			buf1st_->Write( str, coord, attribs );
-		}
-	}
+	GetTargetBuf( targetBuf )->Write( str, coord, attribs );
 }
 
 void DoubleConsoleBuffer::CleanupBuffer( BufferType targetBuf )
 {
-	if ( targetBuf == ActiveBuffer )
-	{
-		if( firstIsActive_ )
-		{
-			buf1st_->Cleanup();
-		}
-		else
-		{
-			buf2nd_->Cleanup();
-		}
-	}
-	else
-	{
-		if( firstIsActive_ )
-		{
-			buf2nd_->Cleanup();
-		}
-		else
-		{
-			buf1st_->Cleanup();
-		}
-	}
+	GetTargetBuf( targetBuf )->Cleanup();
+}
+
+size_t DoubleConsoleBuffer::Height()
+{
+	return height_;
+}
+
+size_t DoubleConsoleBuffer::Width()
+{
+	return width_;
 }

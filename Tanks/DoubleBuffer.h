@@ -32,17 +32,22 @@ public:
 	void FlipBuffers();
 	void Write( const std::string& str, COORD coord, WORD attribs,  BufferType targetBuf = ActiveBuffer );
 	void CleanupBuffer( BufferType targetBuf = ActiveBuffer );
+	size_t Height();
+	size_t Width();
 
 private:
+	typedef boost::shared_ptr<ConsoleBuffer> BufferPtr;
+
 	void InitBuffers();
 	HANDLE CreateConsoleBuffer();
-
-	typedef boost::shared_ptr<ConsoleBuffer> BufferPtr;
+	void ResizeConsoleBuf( HANDLE hConsole, size_t xSize, size_t ySize );
+	BufferPtr GetTargetBuf( BufferType bufType );
 
 	BufferPtr buf1st_;
 	BufferPtr buf2nd_;
 
 	bool firstIsActive_;
+	size_t width_, height_;
 };
 
 inline DoubleConsoleBuffer& Console()
