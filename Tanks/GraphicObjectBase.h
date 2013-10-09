@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Dispatchable.h"
 #include "GlobalDeclarations.h"
 #include "Coordinates.h"
 #include <boost/shared_ptr.hpp>
@@ -9,7 +10,8 @@ class Renderer;
 class GraphicObjectVisitor;
 
 class GraphicObjectBase
-	: boost::noncopyable
+	: public Dispatchable
+	, boost::noncopyable
 {
 public:
 	typedef boost::shared_ptr<GraphicObjectBase> Ptr;
@@ -37,6 +39,10 @@ public:
 protected:
 	GlobalDeclarations::Direction lastMoveDirection_;
 	Coordinates coords_;
+
+	bool blocker_;
+	size_t health_;
+	size_t damageLevel_;
 
 private:
 	virtual void DrawImpl( Renderer* renderer ) = 0;

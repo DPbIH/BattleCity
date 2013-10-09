@@ -152,6 +152,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="Dispatchable.h" />
     <ClInclude Include="DoubleBuffer.h" />
     <ClInclude Include="DummyCommand.h" />
     <ClInclude Include="GameCommand.h" />
@@ -161,6 +163,7 @@
     <ClInclude Include="GameMenuState.h" />
     <ClInclude Include="GameplayCommandsFactory.h" />
     <ClInclude Include="GameplayState.h" />
+    <ClInclude Include="GameScreen.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GlobalDeclarations.h" />
     <ClInclude Include="GamePauseCommand.h" />
@@ -198,6 +201,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="Dispatcher.h" />
     <ClCompile Include="Coordinates.cpp" />
     <ClCompile Include="DoubleBuffer.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -205,6 +210,7 @@
     <ClCompile Include="GameMenuState.cpp" />
     <ClCompile Include="GameplayCommandsFactory.cpp" />
     <ClCompile Include="GameplayState.cpp" />
+    <ClCompile Include="GameScreen.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GamePauseCommand.cpp" />
     <ClCompile Include="GraphicObjectBase.cpp" />
