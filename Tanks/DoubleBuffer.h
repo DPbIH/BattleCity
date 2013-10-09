@@ -40,7 +40,9 @@ private:
 
 	void InitBuffers();
 	HANDLE CreateConsoleBuffer();
-	void ResizeConsoleBuf( HANDLE hConsole, size_t xSize, size_t ySize );
+	void ResizeConsole( HANDLE hConsole, size_t xSize, size_t ySize );
+	void SetFontSize( HANDLE hConsole, COORD fontSize );
+	void HideCursor( HANDLE hConsole );
 	BufferPtr GetTargetBuf( BufferType bufType );
 
 	BufferPtr buf1st_;
@@ -48,6 +50,7 @@ private:
 
 	bool firstIsActive_;
 	size_t width_, height_;
+	COORD fontSize_;
 };
 
 inline DoubleConsoleBuffer& Console()

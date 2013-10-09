@@ -57,6 +57,8 @@ DoubleConsoleBuffer::DoubleConsoleBuffer()
 	: width_(100)
 	, height_(50)
 {
+	fontSize_.X = fontSize_.Y = 8;
+
 	InitBuffers();
 }
 
@@ -68,7 +70,20 @@ void DoubleConsoleBuffer::InitBuffers()
 	firstIsActive_ = true;
 }
 
-void DoubleConsoleBuffer::ResizeConsoleBuf( HANDLE hConsole, size_t xSize, size_t ySize )
+HANDLE DoubleConsoleBuffer::CreateConsoleBuffer()
+{
+	HANDLE buf = CreateConsoleScreenBuffer( GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL );
+	if( buf != INVALID_HANDLE_VALUE )
+	{
+		//SetFontSize( buf, fontSize_ );
+		HideCursor( buf );
+		ResizeConsole( buf, width_, height_ );
+	}
+
+	return buf;
+}
+
+void DoubleConsoleBuffer::ResizeConsole( HANDLE hConsole, size_t xSize, size_t ySize )
 {
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	SMALL_RECT srWindowRect;
@@ -98,18 +113,25 @@ void DoubleConsoleBuffer::ResizeConsoleBuf( HANDLE hConsole, size_t xSize, size_
 	}
 }
 
-HANDLE DoubleConsoleBuffer::CreateConsoleBuffer()
+void DoubleConsoleBuffer::SetFontSize( HANDLE hConsole, COORD fontSize )
 {
-	HANDLE buf = CreateConsoleScreenBuffer( GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL );
-	if( buf != INVALID_HANDLE_VALUE )
-	{
-		CONSOLE_CURSOR_INFO curinf = { 1, FALSE };
-		assert(SetConsoleCursorInfo(buf, &curinf));
-		ResizeConsoleBuf(buf, width_, height_);
-	}
+	CONSOLE_FONT_INFOEX cfi;
+	cfi.cbSize = sizeof(CONSOLE_FONT_INFOEX);
 
-	return buf;
+	assert(GetCurrentConsoleFontEx( hConsole, false, &cfi ));
+
+	cfi.dwFontSize.X = fontSize.X;
+	cfi.dwFontSize.Y = fontSize.Y;
+
+	assert(SetCurrentConsoleFontEx( hConsole, false, &cfi ));
 }
+
+void DoubleConsoleBuffer::HideCursor( HANDLE hConsole )
+{
+	CONSOLE_CURSOR_INFO curinf = { 1, FALSE };
+	assert(SetConsoleCursorInfo(hConsole, &curinf));
+}
+
 
 void DoubleConsoleBuffer::FlipBuffers()
 {
