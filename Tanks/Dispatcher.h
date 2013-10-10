@@ -1,9 +1,11 @@
 #pragma once
 
-#include "Dispatchable.h"
+#include "stdafx.h"
 
 #include <map>
 #include <boost/shared_ptr.hpp>
+
+#include "Dispatchable.h"
 
 class Dispatcher
 {

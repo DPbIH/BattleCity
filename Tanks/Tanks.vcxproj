@@ -163,7 +163,6 @@
     <ClInclude Include="GameMenuState.h" />
     <ClInclude Include="GameplayCommandsFactory.h" />
     <ClInclude Include="GameplayState.h" />
-    <ClInclude Include="GameScreen.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GlobalDeclarations.h" />
     <ClInclude Include="GamePauseCommand.h" />
@@ -174,6 +173,7 @@
     <ClInclude Include="LevelBuilder.h" />
     <ClInclude Include="LevelMapFileParser.h" />
     <ClInclude Include="MenuCommandsFactory.h" />
+    <ClInclude Include="Mine.h" />
     <ClInclude Include="MoveCommand.h" />
     <ClInclude Include="OpenFireCommand.h" />
     <ClInclude Include="Player.h" />
@@ -185,7 +185,7 @@
     <ClInclude Include="Helpers.h" />
     <ClInclude Include="KeyboardEventsHandler.h" />
     <ClInclude Include="KeyboardEventsListener.h" />
-    <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="Terrain.h" />
     <ClInclude Include="PublisherBase.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
@@ -210,7 +210,6 @@
     <ClCompile Include="GameMenuState.cpp" />
     <ClCompile Include="GameplayCommandsFactory.cpp" />
     <ClCompile Include="GameplayState.cpp" />
-    <ClCompile Include="GameScreen.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GamePauseCommand.cpp" />
     <ClCompile Include="GraphicObjectBase.cpp" />
@@ -221,6 +220,7 @@
     <ClCompile Include="LevelBuilder.cpp" />
     <ClCompile Include="LevelMapFileParser.cpp" />
     <ClCompile Include="MenuCommandsFactory.cpp" />
+    <ClCompile Include="Mine.cpp" />
     <ClCompile Include="MoveCommand.cpp" />
     <ClCompile Include="OpenFireCommand.cpp" />
     <ClCompile Include="RegistryGarbageCollector.cpp" />
@@ -231,7 +231,7 @@
     <ClCompile Include="Helpers.cpp" />
     <ClCompile Include="KeyboardEventsHandler.cpp" />
     <ClCompile Include="KeyboardEventsListener.cpp" />
-    <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="PublisherBase.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneObjectsVisitor.cpp" />

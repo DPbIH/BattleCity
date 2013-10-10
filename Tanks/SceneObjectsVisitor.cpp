@@ -2,7 +2,8 @@
 #include "Scene.h"
 #include "Tank.h"
 #include "Bullet.h"
-#include "Obstacle.h"
+#include "Terrain.h"
+#include "Mine.h"
 #include "GraphicObjectBase.h"
 #include "SceneObjectsVisitor.h"
 
@@ -29,9 +30,14 @@ void SceneObjectsVisitor::Visit( Bullet* bullet )
 	VISIT_SCENE_OBJECT(bullet);
 }
 
-void SceneObjectsVisitor::Visit( Obstacle* obstacle )
+void SceneObjectsVisitor::Visit( Terrain* terrain )
 {
-	VISIT_SCENE_OBJECT(obstacle);
+	VISIT_SCENE_OBJECT(terrain);
+}
+
+void SceneObjectsVisitor::Visit( Mine* mine )
+{
+	VISIT_SCENE_OBJECT(mine);
 }
 
 bool SceneObjectsVisitor::CheckObjectBelongsToScene( GraphicObjectBase* obj )

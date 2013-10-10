@@ -13,7 +13,8 @@ public:
 	SceneRenderer( Scene* scene );
 	void Render( const Tank* tank );
 	void Render( const Bullet* bullet );
-	void Render( const Obstacle* tank );
+	void Render( const Terrain* tank );
+	void Render( const Mine* mine );
 
 private:
 	void Print( const Coordinates& pos, char ch, WORD color );

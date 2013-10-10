@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "Tank.h"
 #include "Bullet.h"
-#include "Obstacle.h"
+#include "Terrain.h"
+#include "Mine.h"
 #include "GraphicObjectBase.h"
 #include "RegistryLookupVisitor.h"
 
@@ -25,9 +26,14 @@ void RegistryLookupVisitor::Visit( Tank* tank )
 	DoVisit( tank );
 }
 
-void RegistryLookupVisitor::Visit( Obstacle* obstacle )
+void RegistryLookupVisitor::Visit( Terrain* terrain )
 {
-	DoVisit( obstacle );
+	DoVisit( terrain );
+}
+
+void RegistryLookupVisitor::Visit( Mine* mine )
+{
+	DoVisit( mine );
 }
 
 void RegistryLookupVisitor::DoVisit( GraphicObjectBase* obj )

@@ -16,7 +16,12 @@ void GraphicObjectVisitorDecorator::Visit( Bullet* bullet )
 	decorated_->Visit(bullet);
 }
 
-void GraphicObjectVisitorDecorator::Visit( Obstacle* obstacle )
+void GraphicObjectVisitorDecorator::Visit( Terrain* terrain )
 {
-	decorated_->Visit(obstacle);
+	decorated_->Visit(terrain);
+}
+
+void GraphicObjectVisitorDecorator::Visit( Mine* mine )
+{
+	decorated_->Visit(mine);
 }

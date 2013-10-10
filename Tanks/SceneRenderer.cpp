@@ -2,7 +2,8 @@
 #include "Scene.h"
 #include "Tank.h"
 #include "Bullet.h"
-#include "Obstacle.h"
+#include "Terrain.h"
+#include "Mine.h"
 #include "DoubleBuffer.h"
 #include "SceneRenderer.h"
 
@@ -25,9 +26,14 @@ void SceneRenderer::Render( const Bullet* bullet )
 	RENDER(bullet, 15, FOREGROUND_RED );
 }
 
-void SceneRenderer::Render( const Obstacle* obstacle )
+void SceneRenderer::Render( const Terrain* terrain )
 {
-	RENDER(obstacle, 178, FOREGROUND_BLUE );
+	RENDER(terrain, 178, FOREGROUND_BLUE );
+}
+
+void SceneRenderer::Render( const Mine* mine )
+{
+	RENDER(mine, 200, FOREGROUND_RED );
 }
 
 Coordinates SceneRenderer::GetRenderPositionForObject( const GraphicObjectBase* obj )

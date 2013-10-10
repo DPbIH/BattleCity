@@ -5,7 +5,7 @@
 
 class Tank;
 class Bullet;
-class Obstacle;
+class Terrain;
 class GraphicObjectBase;
 class Renderer;
 
@@ -16,7 +16,8 @@ public:
 	DrawVisitor(Renderer* renderer);
 	void Visit( Tank* );
 	void Visit( Bullet* );
-	void Visit( Obstacle* );
+	void Visit( Terrain* );
+	void Visit( Mine* );
 
 private:
 	Renderer* renderer_;

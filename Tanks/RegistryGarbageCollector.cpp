@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "Tank.h"
 #include "Bullet.h"
-#include "Obstacle.h"
+#include "Terrain.h"
+#include "Mine.h"
 #include "GraphicObjectBase.h"
 #include "GraphicObjectsRegistry.h"
 #include "RegistryGarbageCollector.h"
@@ -22,9 +23,14 @@ void RegistryGarbageCollector::Visit( Bullet* bullet)
 	DoVisit(bullet);
 }
 
-void RegistryGarbageCollector::Visit( Obstacle* obstacle )
+void RegistryGarbageCollector::Visit( Terrain* terrain )
 {
-	DoVisit(obstacle);
+	DoVisit(terrain);
+}
+
+void RegistryGarbageCollector::Visit( Mine* mine )
+{
+	DoVisit(mine);
 }
 
 void RegistryGarbageCollector::DoVisit( GraphicObjectBase* obj )

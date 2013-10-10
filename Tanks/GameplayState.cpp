@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Tank.h"
-#include "Obstacle.h"
+#include "Terrain.h"
 #include "Scene.h"
 #include "GraphicObjectsFactory.h"
 #include "GameplayCommandsFactory.h"
@@ -27,6 +27,9 @@ void GameplayState::Update()
 		game_->ChangeState( game_->GetState( GameMenu ) );
 		return;
 	}
+
+//	RunCycle();
+//	Screen()->Update();
 
 	game_->currentLevel_->RenderScene();
 }

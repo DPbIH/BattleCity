@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Helpers.h"
 #include "Renderer.h"
+#include "CollisionManager.h"
 #include "GraphicObjectBase.h"
 
 GraphicObjectBase::GraphicObjectBase()
@@ -8,6 +9,9 @@ GraphicObjectBase::GraphicObjectBase()
 	, lastMoveDirection_( GlobalDeclarations::North )
 	, isGarbage_( false )
 	, isHidden_( false )
+	, health_(0)
+	, damageable_(true)
+	, damagePoints_(0)
 {
 }
 
@@ -45,19 +49,23 @@ void GraphicObjectBase::Move( size_t delta, GlobalDeclarations::Direction direct
 		break;
 	}
 
+	lastMoveDirection_ = direction;
+
 	if( GraphicObjectBase* collision = Helpers::FindGraphicObjectByPosition( Coordinates(newX, newY) ) )
 	{
-		if( collision != this )
-		{
-			HandleCollision( collision );
-		}
-	}
-	else
-	{
-		SetCoordinates( newX, newY );
+		HandleCollision( collision );
+		return;
 	}
 
-	lastMoveDirection_ = direction;
+	SetCoordinates( newX, newY );
+}
+
+void GraphicObjectBase::HandleCollision( GraphicObjectBase* other )
+{
+	if( other != this )
+	{
+		CollisionManagerInstance().Handle( *this, *other );
+	}
 }
 
 bool GraphicObjectBase::IsGarbage()
@@ -106,4 +114,35 @@ size_t GraphicObjectBase::newInstanceCounter_ = 0;
 size_t GraphicObjectBase::CreateUID()
 {
 	return InterlockedIncrement( &newInstanceCounter_ );
+}
+
+void GraphicObjectBase::Damage( GraphicObjectBase& other )
+{
+	other.GetDamaged( damagePoints_ );
+}
+
+void GraphicObjectBase::GetDamaged( size_t damagePoints )
+{
+	if( ! damageable_ )
+	{
+		return;
+	}
+
+	if( health_ > damagePoints )
+	{
+		health_ -= damagePoints;
+	}
+	else
+	{
+		health_ = 0;
+		Die();
+	}
+}
+
+void GraphicObjectBase::Die()
+{
+}
+
+void GraphicObjectBase::Explode()
+{
 }

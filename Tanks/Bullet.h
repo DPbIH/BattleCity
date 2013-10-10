@@ -14,6 +14,9 @@ public:
 	void Fly( GlobalDeclarations::Direction direction );
 	void Accept( GraphicObjectVisitor& visitor );
 
+	static void* get_type_static();
+	void* get_type();
+
 protected:
 	void DrawImpl(Renderer* renderer);
 

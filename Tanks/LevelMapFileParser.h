@@ -21,9 +21,12 @@ private:
 	void ProcessEntry( char entry, const Coordinates& coord );
 
 	void OnParseBegin();
-	void OnNewObstacle( const Coordinates& coord);
+	void OnNewRock( const Coordinates& coord);
+	void OnNewGrass( const Coordinates& coord);
+	void OnNewIce( const Coordinates& coord);
 	void OnNewEnemy( const Coordinates& coord);
 	void OnNewPlayer( const Coordinates& coord);
+	void OnNewMine( const Coordinates& coord);
 	void OnParseEnd();
 
 	const LevelBuilder::Ptr builder_;

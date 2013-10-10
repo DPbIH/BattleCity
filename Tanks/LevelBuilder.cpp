@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Obstacle.h"
+#include "Terrain.h"
 #include "Tank.h"
 #include "LevelBuilder.h"
 
@@ -14,11 +14,26 @@ void LevelBuilder::BuildLevel()
 	level_.reset( new Level );
 }
 
-void LevelBuilder::BuildObstacle( const Coordinates& coord )
+void LevelBuilder::BuildGrass( const Coordinates& coord )
 {
-	Obstacle::Ptr newObstacle = factory_->CreateObstacle();
-	newObstacle->SetCoordinates(coord);
-	level_->AddObstacle( newObstacle );
+	BuildTerrain( Terrain::Grass, coord );
+}
+
+void LevelBuilder::BuildIce( const Coordinates& coord )
+{
+	BuildTerrain( Terrain::Ice, coord );
+}
+
+void LevelBuilder::BuildRock( const Coordinates& coord )
+{
+	BuildTerrain( Terrain::Rock, coord );
+}
+
+void LevelBuilder::BuildTerrain( Terrain::TerrainType type, const Coordinates& coord )
+{
+	Terrain::Ptr newTerrain = factory_->CreateTerrain( type );
+	newTerrain->SetCoordinates(coord);
+	level_->AddTerrain( newTerrain );
 }
 
 void LevelBuilder::BuildEnemy( const Coordinates& coord )
@@ -37,6 +52,13 @@ void LevelBuilder::BuildPlayer( const Coordinates& coord )
 	newTank->SetCoordinates(coord);
 	player->UseVehicle(newTank);
 	level_->AddPlayer( player );
+}
+
+void LevelBuilder::BuildMine( const Coordinates& coord )
+{
+	Mine::Ptr newMine = factory_->CreateMine();
+	newMine->SetCoordinates(coord);
+	level_->AddMine( newMine );
 }
 
 Level::Ptr LevelBuilder::GetLevel()

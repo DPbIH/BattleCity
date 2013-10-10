@@ -48,3 +48,14 @@ void Bullet::Accept( GraphicObjectVisitor& visitor )
 {
 	visitor.Visit(this);
 }
+
+void* Bullet::get_type_static()
+{
+	static int type=0;
+	return &type;
+}
+
+void* Bullet::get_type()
+{
+	return get_type_static();
+}

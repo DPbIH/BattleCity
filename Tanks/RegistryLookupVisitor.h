@@ -5,7 +5,8 @@
 
 class Tank;
 class Bullet;
-class Obstacle;
+class Terrain;
+class Mine;
 class GraphicObjectBase;
 
 class RegistryLookupVisitor
@@ -17,7 +18,8 @@ public:
 
 	void Visit( Bullet* bullet );
 	void Visit( Tank* tank );
-	void Visit( Obstacle* obstacle );
+	void Visit( Terrain* terrain );
+	void Visit( Mine* mine );
 
 	GraphicObjectBase* GetResult();
 

@@ -22,12 +22,20 @@ Tank::Ptr GraphicObjectsFactory::CreateTank()
 	return tank;
 }
 
-Obstacle::Ptr GraphicObjectsFactory::CreateObstacle()
+Terrain::Ptr GraphicObjectsFactory::CreateTerrain( Terrain::TerrainType type )
 {
-	Obstacle::Ptr obstacle = CreateObstacleImpl();
-	OnNewGraphicObject( obstacle );
+	Terrain::Ptr terrain = CreateTerrainImpl( type );
+	OnNewGraphicObject( terrain );
 
-	return obstacle;
+	return terrain;
+}
+
+Mine::Ptr GraphicObjectsFactory::CreateMine()
+{
+	Mine::Ptr mine = CreateMineImpl();
+	OnNewGraphicObject( mine );
+
+	return mine;
 }
 
 Bullet::Ptr GraphicObjectsFactory::CreateBulletImpl()
@@ -40,9 +48,14 @@ Tank::Ptr GraphicObjectsFactory::CreateTankImpl()
 	return Tank::Ptr( new Tank );
 }
 
-Obstacle::Ptr GraphicObjectsFactory::CreateObstacleImpl()
+Terrain::Ptr GraphicObjectsFactory::CreateTerrainImpl( Terrain::TerrainType type )
 {
-	return Obstacle::Ptr( new Obstacle );
+	return Terrain::Ptr( new Terrain( type ) );
+}
+
+Mine::Ptr GraphicObjectsFactory::CreateMineImpl()
+{
+	return Mine::Ptr( new Mine );
 }
 
 void GraphicObjectsFactory::OnNewGraphicObject( const GraphicObjectBase::Ptr& newObj )

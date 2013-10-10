@@ -3,7 +3,8 @@
 #include "Player.h"
 #include "Tank.h"
 #include "Scene.h"
-#include "Obstacle.h"
+#include "Terrain.h"
+#include "Mine.h"
 #include <boost/shared_ptr.hpp>
 
 class Level
@@ -14,7 +15,8 @@ public:
 	Level();
 	void AddPlayer( const Player::Ptr& player );
 	void AddEnemy( const Tank::Ptr& enemy );
-	void AddObstacle( const Obstacle::Ptr& obstacle );
+	void AddTerrain( const Terrain::Ptr& terrain );
+	void AddMine( const Mine::Ptr& mine );
 	void RenderScene();
 	Player::Ptr Player();
 

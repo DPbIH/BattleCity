@@ -28,6 +28,11 @@ public:
 	void Hide();
 	void Show();
 
+	void Damage( GraphicObjectBase& other );
+	void GetDamaged( size_t damagePoints );
+	void Die();
+	void Explode();
+
 	Coordinates GetCoordinates() const;
 	void SetCoordinates( const Coordinates& newPosition );
 	void SetCoordinates( size_t newX, size_t newY );
@@ -40,13 +45,14 @@ protected:
 	GlobalDeclarations::Direction lastMoveDirection_;
 	Coordinates coords_;
 
-	bool blocker_;
+	size_t damagePoints_;
 	size_t health_;
-	size_t damageLevel_;
+
+	bool damageable_;
 
 private:
 	virtual void DrawImpl( Renderer* renderer ) = 0;
-	virtual void HandleCollision( GraphicObjectBase* ){}
+	void HandleCollision( GraphicObjectBase* other );
 
 	static size_t CreateUID();
 	static size_t newInstanceCounter_;

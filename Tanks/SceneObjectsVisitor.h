@@ -14,7 +14,8 @@ public:
 	SceneObjectsVisitor( Scene* scene, GraphicObjectVisitor* decorated );
 	virtual void Visit( Tank* tank );
 	virtual void Visit( Bullet* bullet );
-	virtual void Visit( Obstacle* obstacle );
+	virtual void Visit( Terrain* terrain );
+	virtual void Visit( Mine* mine );
 
 private:
 	bool CheckObjectBelongsToScene( GraphicObjectBase* obj );

@@ -12,12 +12,17 @@ public:
 
 	LevelBuilder( const GraphicObjectsFactory::Ptr& factory );
 	void BuildLevel();
-	void BuildObstacle( const Coordinates& coord );
+	void BuildGrass( const Coordinates& coord );
+	void BuildIce( const Coordinates& coord );
+	void BuildRock( const Coordinates& coord );
 	void BuildEnemy( const Coordinates& coord );
 	void BuildPlayer( const Coordinates& coord );
+	void BuildMine( const Coordinates& coord );
 	Level::Ptr GetLevel();
 
 private:
+	void BuildTerrain( Terrain::TerrainType type, const Coordinates& coord );
+
 	GraphicObjectsFactory::Ptr factory_;
 	Level::Ptr level_;
 };

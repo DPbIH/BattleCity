@@ -6,7 +6,10 @@
 
 const char Enemy    = 'e';
 const char Player   = 'p';
-const char Obstacle = '#';
+const char Mine     = 'm';
+const char Rock     = '#';
+const char Ice      = 'i';
+const char Grass    = 'g';
 
 LevelMapFileParser::LevelMapFileParser( const LevelBuilder::Ptr& builder )
 	: builder_(builder)
@@ -70,8 +73,16 @@ void LevelMapFileParser::ProcessEntry( char entry, const Coordinates& coord )
 {
 	switch(entry)
 	{
-	case Obstacle:
-		OnNewObstacle(coord);
+	case Rock:
+		OnNewRock(coord);
+		break;
+
+	case Ice:
+		OnNewIce(coord);
+		break;
+
+	case Grass:
+		OnNewGrass(coord);
 		break;
 
 	case Enemy:
@@ -80,6 +91,10 @@ void LevelMapFileParser::ProcessEntry( char entry, const Coordinates& coord )
 
 	case Player:
 		OnNewPlayer(coord);
+		break;
+
+	case Mine:
+		OnNewMine(coord);
 		break;
 
 	default:
@@ -92,9 +107,19 @@ void LevelMapFileParser::OnParseBegin()
 	builder_->BuildLevel();
 }
 
-void LevelMapFileParser::OnNewObstacle( const Coordinates& coord)
+void LevelMapFileParser::OnNewGrass( const Coordinates& coord)
 {
-	builder_->BuildObstacle(coord);
+	builder_->BuildGrass(coord);
+}
+
+void LevelMapFileParser::OnNewRock( const Coordinates& coord)
+{
+	builder_->BuildRock(coord);
+}
+
+void LevelMapFileParser::OnNewIce( const Coordinates& coord)
+{
+	builder_->BuildIce(coord);
 }
 
 void LevelMapFileParser::OnNewEnemy( const Coordinates& coord)
@@ -105,6 +130,11 @@ void LevelMapFileParser::OnNewEnemy( const Coordinates& coord)
 void LevelMapFileParser::OnNewPlayer( const Coordinates& coord)
 {
 	builder_->BuildPlayer(coord);
+}
+
+void LevelMapFileParser::OnNewMine( const Coordinates& coord)
+{
+	builder_->BuildMine(coord);
 }
 
 void LevelMapFileParser::OnParseEnd()

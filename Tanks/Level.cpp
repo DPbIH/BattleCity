@@ -26,9 +26,14 @@ void Level::AddEnemy( const Tank::Ptr& enemy )
 	AddImpl( enemy );
 }
 
-void Level::AddObstacle( const Obstacle::Ptr& obstacle )
+void Level::AddTerrain( const Terrain::Ptr& terrain )
 {
-	AddImpl( obstacle );
+	AddImpl( terrain );
+}
+
+void Level::AddMine( const Mine::Ptr& mine )
+{
+	AddImpl( mine );
 }
 
 void Level::AddImpl( const GraphicObjectBase::Ptr& go )

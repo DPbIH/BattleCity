@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "Tank.h"
 #include "Bullet.h"
-#include "Obstacle.h"
+#include "Terrain.h"
+#include "Mine.h"
 #include "GraphicObjectBase.h"
 #include "Renderer.h"
 #include "DrawVisitor.h"
@@ -21,7 +22,12 @@ void DrawVisitor::Visit( Tank* tank )
 	tank->Draw( renderer_ );
 }
 
-void DrawVisitor::Visit( Obstacle* obstacle )
+void DrawVisitor::Visit( Terrain* terrain )
 {
-	obstacle->Draw( renderer_ );
+	terrain->Draw( renderer_ );
+}
+
+void DrawVisitor::Visit( Mine* mine )
+{
+	mine->Draw( renderer_ );
 }

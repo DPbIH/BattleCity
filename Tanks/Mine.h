@@ -2,22 +2,18 @@
 
 #include "GraphicObjectBase.h"
 
-class Tank:
+class Mine:
 	public GraphicObjectBase
 {
 public:
-	typedef boost::shared_ptr<Tank> Ptr;
+	typedef boost::shared_ptr<Mine> Ptr;
 
-	void Fire();
+	Mine();
 	void Accept( GraphicObjectVisitor& visitor );
-
-	void Skid(){}
-	bool IsSkidding(){return false;}
-
 	static void* get_type_static();
 	void* get_type();
 
 protected:
-	void DrawImpl(Renderer* renderer);
+	void DrawImpl( Renderer* renderer );
 
 };

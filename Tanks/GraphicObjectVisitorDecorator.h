@@ -10,7 +10,8 @@ public:
 	virtual ~GraphicObjectVisitorDecorator() = 0 {}
 	virtual void Visit( Tank* tank );
 	virtual void Visit( Bullet* bullet );
-	virtual void Visit( Obstacle* obstacle );
+	virtual void Visit( Terrain* terrain );
+	virtual void Visit( Mine* mine );
 
 protected:
 	GraphicObjectVisitor* decorated_;
