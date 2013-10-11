@@ -41,6 +41,10 @@ void CollisionManager::CollideTankTerrain( Tank& tank, Terrain& terrain )
 			tank.Skid();
 		}
 		break;
+
+	case Terrain::Grass:
+		tank.SetCoordinates( terrain.GetCoordinates() );
+		break;
 	}
 }
 
@@ -76,6 +80,7 @@ void CollisionManager::CollideBulletTerrain( Bullet& bullet, Terrain& terrain )
 {
 	if( terrain.Type() != Terrain::Rock )
 	{
+		bullet.SetCoordinates( terrain.GetCoordinates() );
 		return;
 	}
 

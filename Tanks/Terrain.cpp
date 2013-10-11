@@ -44,7 +44,7 @@ void* Terrain::get_type()
 	return get_type_static();
 }
 
-Terrain::TerrainType Terrain::Type()
+Terrain::TerrainType Terrain::Type() const
 {
 	return type_;
 }

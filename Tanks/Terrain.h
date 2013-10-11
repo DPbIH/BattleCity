@@ -16,7 +16,7 @@ public:
 	static void* get_type_static();
 	void* get_type();
 
-	TerrainType Type();
+	TerrainType Type() const;
 
 protected:
 	void DrawImpl(Renderer* renderer);

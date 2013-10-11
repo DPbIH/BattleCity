@@ -23,17 +23,38 @@ void SceneRenderer::Render( const Tank* tank )
 
 void SceneRenderer::Render( const Bullet* bullet )
 {
-	RENDER(bullet, 15, FOREGROUND_RED );
+	RENDER(bullet, 42, FOREGROUND_BLUE| FOREGROUND_RED );
 }
 
 void SceneRenderer::Render( const Terrain* terrain )
 {
-	RENDER(terrain, 178, FOREGROUND_BLUE );
+	WORD color;
+	size_t ch;
+
+	switch(terrain->Type())
+	{
+	case Terrain::Ice:
+		color = FOREGROUND_BLUE;
+		ch = 176;
+		break;
+
+	case Terrain::Rock:
+		color = 0;
+		ch = 219;
+		break;
+
+	case Terrain::Grass:
+		color = FOREGROUND_GREEN;
+		ch = 5;
+		break;
+	}
+
+	RENDER(terrain, ch, color );
 }
 
 void SceneRenderer::Render( const Mine* mine )
 {
-	RENDER(mine, 200, FOREGROUND_RED );
+	RENDER(mine, 15, FOREGROUND_RED );
 }
 
 Coordinates SceneRenderer::GetRenderPositionForObject( const GraphicObjectBase* obj )
