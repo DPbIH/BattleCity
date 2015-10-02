@@ -5,7 +5,7 @@
 #include "LevelBuilder.h"
 #include "GraphicObjectsfactory.h"
 
-const char* mapfile = "d:\\map.txt";
+const char* mapfile = "map.txt";
 
 Game::Game()
 	: paused_(false)
