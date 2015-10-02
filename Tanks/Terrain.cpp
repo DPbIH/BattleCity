@@ -10,13 +10,13 @@ Terrain::Terrain( TerrainType type )
 	{
 	case Ice:
 	case Grass:
-		damageable_   = false;
+		destructible_   = false;
 		health_       = 0;
 		damagePoints_ = 0;
 		break;
 
 	case Rock:
-		damageable_   = true;
+		destructible_   = true;
 		health_       = 100;
 		damagePoints_ = 0;
 		break;

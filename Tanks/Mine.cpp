@@ -5,7 +5,7 @@
 
 Mine::Mine()
 {
-	damageable_ = false;
+	destructible_ = false;
 	health_ = 0;
 	damagePoints_ = 50;
 }

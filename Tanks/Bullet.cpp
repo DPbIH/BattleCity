@@ -3,6 +3,11 @@
 #include "Renderer.h"
 #include "Bullet.h"
 
+Bullet::Bullet()
+{
+	damagePoints_ = 10;
+}
+
 Bullet::~Bullet()
 {
 	InterruptFlyThread();

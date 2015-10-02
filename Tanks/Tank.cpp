@@ -5,12 +5,52 @@
 #include "Bullet.h"
 #include "Tank.h"
 
+size_t loadsDefaultCount         = 5;
+size_t bulletsInLoadDefaultCount = 20;
+size_t defaultHealthLevel        = 100;
+
+Tank::Tank()
+{
+	isSkidding_     = false;
+	loadsCounter_   = loadsDefaultCount;
+	bulletsCounter_ = bulletsInLoadDefaultCount;
+	health_         = defaultHealthLevel;
+	destructible_   = true;
+}
+
 void Tank::Fire()
 {
+	if( ! bulletsCounter_ )
+	{
+		return;
+	}
+
+	--bulletsCounter_;
 	GraphicObjectsFactory goFactory;
 	Bullet::Ptr bullet = goFactory.CreateBullet();
 	bullet->SetCoordinates( coords_ );
 	bullet->Fly( lastMoveDirection_ );
+}
+
+void Tank::Skid()
+{
+	isSkidding_ = true;
+}
+
+bool Tank::IsSkidding()
+{
+	return isSkidding_;
+}
+
+void Tank::Reload()
+{
+	if( ! loadsCounter_ )
+	{
+		return;
+	}
+
+	--loadsCounter_;
+	bulletsCounter_ = bulletsInLoadDefaultCount;
 }
 
 void Tank::DrawImpl(Renderer* renderer)

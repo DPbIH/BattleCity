@@ -10,7 +10,7 @@ GraphicObjectBase::GraphicObjectBase()
 	, isGarbage_( false )
 	, isHidden_( false )
 	, health_(0)
-	, damageable_(true)
+	, destructible_(true)
 	, damagePoints_(0)
 {
 }
@@ -123,7 +123,7 @@ void GraphicObjectBase::Damage( GraphicObjectBase& other )
 
 void GraphicObjectBase::GetDamaged( size_t damagePoints )
 {
-	if( ! damageable_ )
+	if( ! destructible_ )
 	{
 		return;
 	}
@@ -141,8 +141,10 @@ void GraphicObjectBase::GetDamaged( size_t damagePoints )
 
 void GraphicObjectBase::Die()
 {
+	IsGarbage(true);
 }
 
 void GraphicObjectBase::Explode()
 {
+	Die();
 }

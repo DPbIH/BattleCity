@@ -32,6 +32,7 @@ public:
 	void GetDamaged( size_t damagePoints );
 	void Die();
 	void Explode();
+	bool IsDead();
 
 	Coordinates GetCoordinates() const;
 	void SetCoordinates( const Coordinates& newPosition );
@@ -47,8 +48,11 @@ protected:
 
 	size_t damagePoints_;
 	size_t health_;
-
-	bool damageable_;
+	bool isDead_;
+	bool destructible_;
+	bool moving_;
+	bool exploded_;
+	size_t speed_;
 
 private:
 	virtual void DrawImpl( Renderer* renderer ) = 0;
